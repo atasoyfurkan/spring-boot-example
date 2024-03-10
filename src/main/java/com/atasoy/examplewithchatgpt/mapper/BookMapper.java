@@ -34,6 +34,6 @@ public abstract class BookMapper {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Author not found"));
     }
 
-    public abstract BookOutputDTO bookToBookOutputDTO(Book book);
+    public abstract BookOutputDTO toOutputDTO(Book book);
 
 }

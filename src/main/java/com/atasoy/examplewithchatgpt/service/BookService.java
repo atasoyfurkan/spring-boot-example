@@ -27,19 +27,19 @@ public class BookService {
     public BookOutputDTO createBook(BookInputDTO dto) {
         Book book = bookMapper.toEntity(dto);
         book = bookRepository.save(book);
-        return bookMapper.bookToBookOutputDTO(book);
+        return bookMapper.toOutputDTO(book);
     }
 
     public List<BookOutputDTO> findAllBooks() {
         return bookRepository.findAll().stream()
-                .map(bookMapper::bookToBookOutputDTO)
+                .map(bookMapper::toOutputDTO)
                 .collect(Collectors.toList());
     }
 
     public BookOutputDTO findBookById(Long id) {
         Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Book not found"));
-        return bookMapper.bookToBookOutputDTO(book);
+        return bookMapper.toOutputDTO(book);
     }
 
     public BookOutputDTO updateBook(Long id, BookInputDTO dto) {
@@ -47,7 +47,7 @@ public class BookService {
                 .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Book not found"));
         bookMapper.updateEntity(dto, book);
         book = bookRepository.save(book);
-        return bookMapper.bookToBookOutputDTO(book);
+        return bookMapper.toOutputDTO(book);
     }
 
     public void deleteBook(Long id) {
